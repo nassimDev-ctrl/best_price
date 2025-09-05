@@ -30,18 +30,18 @@ class SettingsListOptions extends StatelessWidget {
           SizedBox(
             height: 27.h,
           ),
-          OptionItem(
-            title: S.of(context).notification, //"Notification",
-            iconPath: IconsPath.notificationIcon,
-            trailing: SizedBox(
-              height: 27.h,
-              width: 45.01.w,
-              child: CupertinoSwitch(
-                value: true,
-                onChanged: (value) {},
-              ),
-            ),
-          ),
+          // OptionItem(
+          //   title: S.of(context).notification, //"Notification",
+          //   iconPath: IconsPath.notificationIcon,
+          //   trailing: SizedBox(
+          //     height: 27.h,
+          //     width: 45.01.w,
+          //     child: CupertinoSwitch(
+          //       value: true,
+          //       onChanged: (value) {},
+          //     ),
+          //   ),
+          // ),
           OptionItem(
               title: S.of(context).language, //"Language",
               onTap: () {

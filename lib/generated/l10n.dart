@@ -280,6 +280,46 @@ class S {
     return Intl.message('Change', name: 'change', desc: '', args: []);
   }
 
+  /// `Change Phone Number`
+  String get change_phone_number {
+    return Intl.message(
+      'Change Phone Number',
+      name: 'change_phone_number',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New Phone Number*`
+  String get new_phone_number_ {
+    return Intl.message(
+      'New Phone Number*',
+      name: 'new_phone_number_',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phone number updated successfully!`
+  String get phone_updated_successfully {
+    return Intl.message(
+      'Phone number updated successfully!',
+      name: 'phone_updated_successfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change Phone Number Error`
+  String get change_phone_error {
+    return Intl.message(
+      'Change Phone Number Error',
+      name: 'change_phone_error',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `About Ghina Shop`
   String get about_best_price {
     return Intl.message(
@@ -770,10 +810,10 @@ class S {
     );
   }
 
-  /// `Don’t have an account? Register`
+  /// `Don't have an account? Register`
   String get dont_have_an_account_Register {
     return Intl.message(
-      'Don’t have an account? Register',
+      'Don\'t have an account? Register',
       name: 'dont_have_an_account_Register',
       desc: '',
       args: [],
@@ -1145,10 +1185,10 @@ class S {
     return Intl.message('See All', name: 'see_all', desc: '', args: []);
   }
 
-  /// `Let’s start shopping!`
+  /// `Let's start shopping!`
   String get Lets_start_shopping {
     return Intl.message(
-      'Let’s start shopping!',
+      'Let\'s start shopping!',
       name: 'Lets_start_shopping',
       desc: '',
       args: [],

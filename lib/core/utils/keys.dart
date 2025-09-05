@@ -52,6 +52,7 @@ class UrlKeys {
   static const oldUrl = "https://bp.linekw.xyz/api/";
   // ! URL
   // static const baseUrl = "https://demo1.weisro.com/api/";
-  static const baseUrl = "https://api.ghinashop.net/best-price/api/v0/";
+  static const baseUrl = "http://127.0.0.1:3002/best-price/api/v0/";
+  // static const baseUrl = "https://api.ghinashop.net/best-price/api/v0/";
   static const apiKey = "ADFRETYUUBFD!#@%*%4455iup!98SCZ@";
 }

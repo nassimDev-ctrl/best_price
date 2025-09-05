@@ -61,36 +61,36 @@ class SupportListOptions extends StatelessWidget {
           SizedBox(
             height: 8.h,
           ),
-          OptionItem(
-              onTap: () {
-                HelperFunctions.navigateToScreen(
-                    context, const TermsConditions());
-              },
-              trailing: langCubit.lang == 'en'
-                  ? SvgPicture.asset(
-                      IconsPath.rightArrowIcon,
-                    )
-                  : SvgPicture.asset(
-                      IconsPath.arrowLeftIcon,
-                    ),
-              title: S.of(context).terms_conditions, // "Terms & Conditions",
-              iconPath: IconsPath.policiesIcon),
-          SizedBox(
-            height: 8.h,
-          ),
-          OptionItem(
-              onTap: () {
-                HelperFunctions.navigateToScreen(context, const ContactUs());
-              },
-              trailing: langCubit.lang == 'en'
-                  ? SvgPicture.asset(
-                      IconsPath.rightArrowIcon,
-                    )
-                  : SvgPicture.asset(
-                      IconsPath.arrowLeftIcon,
-                    ),
-              title: S.of(context).contact_us, //"Contact Us",
-              iconPath: IconsPath.contactIcon),
+          // OptionItem(
+          //     onTap: () {
+          //       HelperFunctions.navigateToScreen(
+          //           context, const TermsConditions());
+          //     },
+          //     trailing: langCubit.lang == 'en'
+          //         ? SvgPicture.asset(
+          //             IconsPath.rightArrowIcon,
+          //           )
+          //         : SvgPicture.asset(
+          //             IconsPath.arrowLeftIcon,
+          //           ),
+          //     title: S.of(context).terms_conditions, // "Terms & Conditions",
+          //     iconPath: IconsPath.policiesIcon),
+          // SizedBox(
+          //   height: 8.h,
+          // ),
+          // OptionItem(
+          //     onTap: () {
+          //       HelperFunctions.navigateToScreen(context, const ContactUs());
+          //     },
+          //     trailing: langCubit.lang == 'en'
+          //         ? SvgPicture.asset(
+          //             IconsPath.rightArrowIcon,
+          //           )
+          //         : SvgPicture.asset(
+          //             IconsPath.arrowLeftIcon,
+          //           ),
+          //     title: S.of(context).contact_us, //"Contact Us",
+          //     iconPath: IconsPath.contactIcon),
           SizedBox(
             height: 11.h,
           ),

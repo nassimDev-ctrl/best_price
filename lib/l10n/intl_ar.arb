@@ -24,6 +24,10 @@
     "changed_password_dialog": "لقد قمت بتغيير كلمة المرور بنجاح",
     "change_password_error": "خطأ في تغيير كلمة المرور",
     "change": "تغيير",
+    "change_phone_number": "تغيير رقم الهاتف",
+    "new_phone_number_": "رقم الهاتف الجديد*",
+    "phone_updated_successfully": "تم تحديث رقم الهاتف بنجاح!",
+    "change_phone_error": "خطأ في تغيير رقم الهاتف",
     "about_best_price": "عن غنا شوب",
     "contact_us": "اتصل بنا",
     "full_name_": "الاسم الكامل*",
@@ -194,5 +198,5 @@
     "verify_otp": "التحقق من رمز التحقق",
     "verify_otp_message": "الرجاء إدخال رمز التحقق المرسل إلى الواتس اب",
     "verify_otp_error": "الرجاء إدخال رمز تحقق صالح.",
-    "notes":"ملاحظات اضافية"
+    "notes": "ملاحظات اضافية"
 }

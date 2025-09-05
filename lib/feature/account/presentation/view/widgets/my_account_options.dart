@@ -7,6 +7,7 @@ import 'package:best_price/core/widgets/question_dialog.dart';
 import 'package:best_price/feature/account/presentation/manager/logout_cubit/logout_cubit.dart';
 import 'package:best_price/feature/account/presentation/view/pages/edit_account_page_view.dart';
 import 'package:best_price/feature/account/presentation/view/pages/change_password_page_view.dart';
+import 'package:best_price/feature/account/presentation/view/pages/change_phone_page_view.dart';
 import 'package:best_price/feature/account/presentation/view/widgets/option_item.dart';
 import 'package:best_price/feature/auth/login/presentation/view/pages/login_page_view.dart';
 import 'package:best_price/feature/splash/presentation/manager/lang_cubit/lang_cubit.dart';
@@ -63,20 +64,6 @@ class MyAccountOptions extends StatelessWidget {
                     ),
               title: S.of(context).my_orders, // "My Orders",
               iconPath: IconsPath.policiesIcon),
-          // OptionItem(
-          //     onTap: () {
-          //       HelperFunctions.navigateToScreen(
-          //           context, const MyAddressView());
-          //     },
-          //     trailing: langCubit.lang == 'en'
-          //         ? SvgPicture.asset(
-          //             IconsPath.rightArrowIcon,
-          //           )
-          //         : SvgPicture.asset(
-          //             IconsPath.arrowLeftIcon,
-          //           ),
-          //     title: S.of(context).my_addresses, //"My Addresses",
-          //     iconPath: IconsPath.addressesIcon),
           OptionItem(
               onTap: () {
                 HelperFunctions.navigateToScreen(
@@ -94,6 +81,20 @@ class MyAccountOptions extends StatelessWidget {
                     ),
               title: S.of(context).wish_list, //"Wish list",
               iconPath: IconsPath.wishIcon),
+          OptionItem(
+              onTap: () {
+                HelperFunctions.navigateToScreen(
+                    context, const ChangePhoneView());
+              },
+              trailing: langCubit.lang == 'en'
+                  ? SvgPicture.asset(
+                      IconsPath.rightArrowIcon,
+                    )
+                  : SvgPicture.asset(
+                      IconsPath.arrowLeftIcon,
+                    ),
+              title: S.of(context).change_phone_number, //"Change Phone Number",
+              iconPath: IconsPath.changeIcon),
           OptionItem(
               onTap: () {
                 HelperFunctions.navigateToScreen(

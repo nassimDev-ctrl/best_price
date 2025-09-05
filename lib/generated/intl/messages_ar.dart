@@ -69,6 +69,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "change_password_error": MessageLookupByLibrary.simpleMessage(
       "خطأ في تغيير كلمة المرور",
     ),
+    "change_phone_error": MessageLookupByLibrary.simpleMessage(
+      "خطأ في تغيير رقم الهاتف",
+    ),
+    "change_phone_number": MessageLookupByLibrary.simpleMessage(
+      "تغيير رقم الهاتف",
+    ),
     "changed_password_dialog": MessageLookupByLibrary.simpleMessage(
       "لقد قمت بتغيير كلمة المرور بنجاح",
     ),
@@ -180,6 +186,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "new_password_": MessageLookupByLibrary.simpleMessage(
       "كلمة المرور الجديدة*",
     ),
+    "new_phone_number_": MessageLookupByLibrary.simpleMessage(
+      "رقم الهاتف الجديد*",
+    ),
     "no": MessageLookupByLibrary.simpleMessage("لا"),
     "no_Product_In_Cart": MessageLookupByLibrary.simpleMessage(
       "لا يوجد منتجات في السلة",
@@ -237,6 +246,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "phone_number_": MessageLookupByLibrary.simpleMessage("رقم الهاتف*"),
     "phone_required_validation": MessageLookupByLibrary.simpleMessage(
       "الهاتف مطلوب",
+    ),
+    "phone_updated_successfully": MessageLookupByLibrary.simpleMessage(
+      "تم تحديث رقم الهاتف بنجاح!",
     ),
     "please_select_an_area": MessageLookupByLibrary.simpleMessage(
       "يرجى اختيار منطقة",

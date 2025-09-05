@@ -50,23 +50,23 @@ class EditAccountForm extends StatelessWidget {
             },
             hintText: S.of(context).enter_your_email, //"Enter your E-mail",
           ),
-          SizedBox(
-            height: 30.h,
-          ),
-          AuthFieldText(
-            title: S.of(context).mobile_number_, //"Mobile Number*",
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          AuthTextField(
-            textEditingController: editAccountCubit.phoneController,
-            keyboardType: TextInputType.phone,
-            validator: (p0) {
-              return Validate.validatePhoneNumber(context, p0);
-            },
-            hintText: S.of(context).enter_your_phone, //"Enter your phone",
-          ),
+          // SizedBox(
+          //   height: 30.h,
+          // ),
+          // AuthFieldText(
+          //   title: S.of(context).mobile_number_, //"Mobile Number*",
+          // ),
+          // SizedBox(
+          //   height: 10.h,
+          // ),
+          // AuthTextField(
+          //   textEditingController: editAccountCubit.phoneController,
+          //   keyboardType: TextInputType.phone,
+          //   validator: (p0) {
+          //     return Validate.validatePhoneNumber(context, p0);
+          //   },
+          //   hintText: S.of(context).enter_your_phone, //"Enter your phone",
+          // ),
         ],
       ),
     );

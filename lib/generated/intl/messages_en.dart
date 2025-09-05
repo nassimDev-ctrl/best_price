@@ -29,7 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Enter_Here": MessageLookupByLibrary.simpleMessage("Enter Here"),
     "Forget_Password": MessageLookupByLibrary.simpleMessage("Forget Password?"),
     "Lets_start_shopping": MessageLookupByLibrary.simpleMessage(
-      "Let’s start shopping!",
+      "Let\'s start shopping!",
     ),
     "NO_CONNECTION": MessageLookupByLibrary.simpleMessage("NO CONNECTION"),
     "Wishlist": MessageLookupByLibrary.simpleMessage("Wish list"),
@@ -66,6 +66,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "change_password": MessageLookupByLibrary.simpleMessage("Change Password"),
     "change_password_error": MessageLookupByLibrary.simpleMessage(
       "Change Password Error",
+    ),
+    "change_phone_error": MessageLookupByLibrary.simpleMessage(
+      "Change Phone Number Error",
+    ),
+    "change_phone_number": MessageLookupByLibrary.simpleMessage(
+      "Change Phone Number",
     ),
     "changed_password_dialog": MessageLookupByLibrary.simpleMessage(
       "You have successfully\nChanged Your Password",
@@ -109,7 +115,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "description": MessageLookupByLibrary.simpleMessage("Description"),
     "discount": MessageLookupByLibrary.simpleMessage("Discount"),
     "dont_have_an_account_Register": MessageLookupByLibrary.simpleMessage(
-      "Don’t have an account? Register",
+      "Don\'t have an account? Register",
     ),
     "e_mail": MessageLookupByLibrary.simpleMessage("E-mail"),
     "edit_account": MessageLookupByLibrary.simpleMessage("edit Account"),
@@ -180,6 +186,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "new_arrivals": MessageLookupByLibrary.simpleMessage("New Arrivals"),
     "new_password_": MessageLookupByLibrary.simpleMessage("new Password*"),
+    "new_phone_number_": MessageLookupByLibrary.simpleMessage(
+      "New Phone Number*",
+    ),
     "no": MessageLookupByLibrary.simpleMessage("No"),
     "no_Product_In_Cart": MessageLookupByLibrary.simpleMessage(
       "No products in cart",
@@ -233,6 +242,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "phone_number_": MessageLookupByLibrary.simpleMessage("Phone Number*"),
     "phone_required_validation": MessageLookupByLibrary.simpleMessage(
       "phone is required",
+    ),
+    "phone_updated_successfully": MessageLookupByLibrary.simpleMessage(
+      "Phone number updated successfully!",
     ),
     "please_select_an_area": MessageLookupByLibrary.simpleMessage(
       "Please select an area",

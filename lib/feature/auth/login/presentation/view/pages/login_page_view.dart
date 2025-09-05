@@ -99,6 +99,13 @@ class LoginView extends StatelessWidget {
                         OtpPageView(
                           phoneOrEmail: loginCubit.emailController.text,
                         ));
+                  } else {
+                    HelperFunctions.showCustomDialog(
+                        context,
+                        UpdateAccountDialog(
+                          title: S.of(context).sign_up_error, //"Sign up error",
+                          contain: state.errMessage,
+                        ));
                   }
                 }
               },
