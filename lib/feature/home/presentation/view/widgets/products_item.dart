@@ -44,10 +44,8 @@ class ProductsItem extends StatelessWidget {
             Stack(
               children: [
                 CachedNetworkImage(
-                  width: 160.w,
                   imageUrl: imageUrl,
-                  height: 200.h,
-                  fit: BoxFit.scaleDown,
+                  fit: BoxFit.contain,
                 ),
                 Positioned(
                   bottom: 15.h,

@@ -102,27 +102,30 @@ class _OtpPageViewState extends State<OtpPageView> {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 16),
-                  OtpTextField(
-                    autoFocus: true,
-                    numberOfFields: 5,
-                    borderColor: AppColor.yalow,
-                    focusedBorderColor: AppColor.yalow,
-                    cursorColor: AppColor.yalow,
-                    showFieldAsBox: true,
-                    borderRadius: BorderRadius.circular(8),
-                    fieldWidth: 48,
-                    onCodeChanged: (code) {
-                      setState(() {
-                        _error = null;
-                        _otp = code;
-                      });
-                    },
-                    onSubmit: (code) {
-                      setState(() {
-                        _otp = code;
-                      });
-                      _submit(context);
-                    },
+                  Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: OtpTextField(
+                      autoFocus: true,
+                      numberOfFields: 5,
+                      borderColor: AppColor.yalow,
+                      focusedBorderColor: AppColor.yalow,
+                      cursorColor: AppColor.yalow,
+                      showFieldAsBox: true,
+                      borderRadius: BorderRadius.circular(8),
+                      fieldWidth: 48,
+                      onCodeChanged: (code) {
+                        setState(() {
+                          _error = null;
+                          _otp = code;
+                        });
+                      },
+                      onSubmit: (code) {
+                        setState(() {
+                          _otp = code;
+                        });
+                        _submit(context);
+                      },
+                    ),
                   ),
                   const SizedBox(height: 16),
                   if (_error != null)
