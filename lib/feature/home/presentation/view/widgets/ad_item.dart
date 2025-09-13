@@ -1,3 +1,4 @@
+import 'package:best_price/core/theme/app_color.dart';
 import 'package:best_price/core/theme/app_style.dart';
 import 'package:best_price/feature/home/data/models/home_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -18,7 +19,7 @@ class AdItem extends StatelessWidget {
         end: 10.w,
       ),
       decoration: BoxDecoration(
-          color: Colors.black38, borderRadius: BorderRadius.circular(16.r)),
+          color: AppColor.corn, borderRadius: BorderRadius.circular(16.r)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

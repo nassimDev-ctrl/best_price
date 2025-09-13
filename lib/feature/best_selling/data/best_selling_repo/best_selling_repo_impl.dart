@@ -11,7 +11,7 @@ class BestSellingRepoImpl implements BestSellingRepo {
     try {
       var response = await getIt
           .get<ApiService>()
-          .get(endPoint: "products/products/best-sellers");
+          .get(endPoint: "products/products/best-sellers?limit=160");
       List<Product> productsList = [];
       for (var element in response['data']['products']) {
         productsList.add(Product.fromJson(element));
