@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:best_price/core/api/api_service.dart';
 import 'package:best_price/core/cache/cache_helper.dart';
 import 'package:best_price/core/errors/failures.dart';
@@ -51,6 +53,10 @@ class SignUpRepoImpl implements SignUprRepo {
   @override
   Future<Either<Failure, String>> verificationCode(
       String phoneNumber, String code) async {
+    log("Data ${{
+      "email": phoneNumber,
+      "otp": code,
+    }}");
     try {
       var response = await getIt.get<ApiService>().post(
         endPoint: "auth/verify-signup-otp",
@@ -59,7 +65,7 @@ class SignUpRepoImpl implements SignUprRepo {
           "otp": code,
         },
       );
-      return right(response['message']);
+      return right('sendes');
     } catch (e) {
       if (e is DioException) {
         LoggerHelper.error(' ########### Dio Exception #################');

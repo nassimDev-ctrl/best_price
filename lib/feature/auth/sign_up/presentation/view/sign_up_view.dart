@@ -101,8 +101,7 @@ class _SignUpViewState extends State<SignUpView> {
                         HelperFunctions.navigateToScreen(
                           context,
                           OtpPageView(
-                              phoneOrEmail: signUpCubit.formatPhoneNumber(
-                                  signUpCubit.phoneController.text)),
+                              phoneOrEmail: signUpCubit.phoneController.text),
                         );
                       }
                     });
@@ -148,3 +147,4 @@ class _SignUpViewState extends State<SignUpView> {
     );
   }
 }
+// +963  0969687020

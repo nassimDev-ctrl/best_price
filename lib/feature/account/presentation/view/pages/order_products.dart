@@ -192,8 +192,7 @@ class OrderProducts extends StatelessWidget {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          product.deliveryDate
-                                                  ?.substring(0, 10) ??
+                                          "${product.deliveryDate?.substring(0, 10)}  ${product.deliveryDate?.substring(14, 19)}" ??
                                               '',
                                           style: AppStyles.textStyle14w400
                                               .copyWith(
