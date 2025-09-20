@@ -73,7 +73,7 @@ class CartItem extends StatelessWidget {
                 RichText(
                   text: TextSpan(
                     text: offerPrice != cartProduct.price
-                        ? offerPrice.toString() 
+                        ? offerPrice.toString()
                         : "",
                     style: AppStyles.textStyle16w700,
                     children: [
@@ -142,6 +142,7 @@ class CartItem extends StatelessWidget {
                   children: [
                     CustomEditQuantity(
                       id: id.toString(),
+                      minSellerQuantity: cartProduct.minSellerQuantity ?? 1,
                     ),
                     IconButton(
                       onPressed: () {

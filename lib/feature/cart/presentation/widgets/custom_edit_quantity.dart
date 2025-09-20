@@ -11,9 +11,10 @@ class CustomEditQuantity extends StatelessWidget {
   const CustomEditQuantity({
     super.key,
     required this.id,
+    required this.minSellerQuantity,
   });
   final String id;
-
+  final num minSellerQuantity;
   @override
   Widget build(BuildContext context) {
     ChangeQuantityCubit changeQuantityCubit = ChangeQuantityCubit.get(context);
@@ -29,7 +30,8 @@ class CustomEditQuantity extends StatelessWidget {
             CustomEditButton(
               color: AppColor.greyOpacity,
               onTap: () {
-                changeQuantityCubit.decrementQuantity(id);
+                changeQuantityCubit.decrementQuantity(
+                    id, minSellerQuantity, context);
                 final newQuantity = int.tryParse(
                         changeQuantityCubit.textEditingControllers[id]?.text ??
                             '0') ??
@@ -44,7 +46,12 @@ class CustomEditQuantity extends StatelessWidget {
             SizedBox(
               width: 42,
               child: Center(
-                child: TextField(
+                child: TextFormField(
+                  enabled: false,
+                  onTapOutside: (event) {
+                    FocusManager.instance.primaryFocus?.unfocus();
+                  },
+                  keyboardType: TextInputType.phone,
                   controller: changeQuantityCubit.textEditingControllers[id],
                   textAlign: TextAlign.center,
                   readOnly: false,

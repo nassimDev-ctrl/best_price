@@ -593,6 +593,19 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                           ),
                                         ),
                                       );
+                                    } else if (state is AddToCartFailures) {
+                                      showTopSnackBar(
+                                        Overlay.of(context),
+                                        CustomSnackBar.error(
+                                          message: state.error,
+                                          backgroundColor: Colors.red,
+                                          textStyle:
+                                              AppStyles.textStyle14.copyWith(
+                                            color: AppColor.whiteColorOpacity,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                      );
                                     }
                                   },
                                   builder: (context, state) {
@@ -605,27 +618,27 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                           final product =
                                               cubit.productDetailsModel.data;
 
-                                          if ((product?.isSeller ?? false) &&
-                                              (product?.minSellerQuantity !=
-                                                      null &&
-                                                  product!.minSellerQuantity! >
-                                                      cubit.quantity)) {
-                                            showTopSnackBar(
-                                              Overlay.of(context),
-                                              CustomSnackBar.error(
-                                                message:
-                                                    "الحد الأدنى للكمية للبائع هو ${product.minSellerQuantity} عناصر.",
-                                                backgroundColor: Colors.red,
-                                                textStyle: AppStyles.textStyle14
-                                                    .copyWith(
-                                                  color: AppColor
-                                                      .whiteColorOpacity,
-                                                  fontWeight: FontWeight.w700,
-                                                ),
-                                              ),
-                                            );
-                                            return; // ❗ prevent adding to cart
-                                          }
+                                          // if ((product?.isSeller ?? false) &&
+                                          //     (product?.minSellerQuantity !=
+                                          //             null &&
+                                          //         product!.minSellerQuantity! >
+                                          //             cubit.quantity)) {
+                                          //   showTopSnackBar(
+                                          //     Overlay.of(context),
+                                          //     CustomSnackBar.error(
+                                          //       message:
+                                          //           "الحد الأدنى للكمية للبائع هو ${product.minSellerQuantity} عناصر.",
+                                          //       backgroundColor: Colors.red,
+                                          //       textStyle: AppStyles.textStyle14
+                                          //           .copyWith(
+                                          //         color: AppColor
+                                          //             .whiteColorOpacity,
+                                          //         fontWeight: FontWeight.w700,
+                                          //       ),
+                                          //     ),
+                                          //   );
+                                          //   return; // ❗ prevent adding to cart
+                                          // }
 
                                           context
                                               .read<AddToCartCubit>()

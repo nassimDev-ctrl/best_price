@@ -43,9 +43,10 @@ class CartRepoImpl implements CartRepo {
   Future<Either<Failure, String>> addToMyCart(
       String productId, Map<String, dynamic> data) async {
     try {
-      var response = getIt
+      await getIt
           .get<ApiService>()
           .post(endPoint: "${UrlKeys.addMyCartEndPoint}$productId", data: data);
+
       return right("added");
     } catch (e) {
       return left(ErrorHandler.handleError(e));

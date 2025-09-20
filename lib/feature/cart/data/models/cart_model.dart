@@ -176,6 +176,7 @@ class MyCart {
       num? price,
       num? discountedPrice,
       num? totalPrice,
+      num? minSellerQuantity,
       Product? product,
       dynamic? variant}) {
     return MyCart(
@@ -202,18 +203,18 @@ class MyCart {
 
   static MyCart fromJson(Map<String, Object?> json) {
     return MyCart(
-        id: json['id'] == null ? null : json['id'] as int,
-        quantity: json['quantity'] == null ? null : json['quantity'] as int,
-        price: json['price'] == null ? null : json['price'] as num,
-        discountedPrice: json['discountedPrice'] == null
-            ? null
-            : json['discountedPrice'] as num,
-        totalPrice:
-            json['totalPrice'] == null ? null : json['totalPrice'] as num,
-        product: json['product'] == null
-            ? null
-            : Product.fromJson(json['product'] as Map<String, Object?>),
-        variant: json['variant'] as dynamic);
+      id: json['id'] == null ? null : json['id'] as int,
+      quantity: json['quantity'] == null ? null : json['quantity'] as int,
+      price: json['price'] == null ? null : json['price'] as num,
+      discountedPrice: json['discountedPrice'] == null
+          ? null
+          : json['discountedPrice'] as num,
+      totalPrice: json['totalPrice'] == null ? null : json['totalPrice'] as num,
+      product: json['product'] == null
+          ? null
+          : Product.fromJson(json['product'] as Map<String, Object?>),
+      variant: json['variant'] as dynamic,
+    );
   }
 
   @override
@@ -257,6 +258,8 @@ class Product {
   final dynamic discountPrice;
   final bool? isHasVariant;
   final dynamic variants;
+  final num? minSellerQuantity;
+
   const Product(
       {this.id,
       this.image,
@@ -264,6 +267,7 @@ class Product {
       this.discountPrice,
       this.name,
       this.isHasVariant,
+      this.minSellerQuantity,
       this.variants});
   Product copyWith(
       {int? id,
@@ -271,6 +275,7 @@ class Product {
       int? price,
       dynamic? discountPrice,
       bool? isHasVariant,
+      num? minSellerQuantity,
       dynamic? variants}) {
     return Product(
         id: id ?? this.id,
@@ -278,6 +283,7 @@ class Product {
         price: price ?? this.price,
         discountPrice: discountPrice ?? this.discountPrice,
         isHasVariant: isHasVariant ?? this.isHasVariant,
+        minSellerQuantity: minSellerQuantity ?? this.minSellerQuantity,
         variants: variants ?? this.variants);
   }
 
@@ -301,6 +307,7 @@ class Product {
         discountPrice: json['discountPrice'] as dynamic,
         isHasVariant:
             json['isHasVariant'] == null ? null : json['isHasVariant'] as bool,
+        minSellerQuantity: json['min_seller_quantity'] as num?,
         variants: json['variants'] as dynamic);
   }
 

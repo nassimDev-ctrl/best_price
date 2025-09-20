@@ -18,7 +18,15 @@ class MyCartCubit extends Cubit<MyCartState> {
     final itemIndex =
         cartItems.indexWhere((item) => item.id.toString() == itemId);
     if (itemIndex != -1) {
-      final updatedItem = cartItems[itemIndex].copyWith(quantity: newQuantity);
+      final currentItem = cartItems[itemIndex];
+      final minQuantity = currentItem.product?.minSellerQuantity ?? 1;
+
+      // Add condition to validate quantity against minimum
+      if (newQuantity < minQuantity) {
+        return; // Don't update if quantity is below minimum
+      }
+
+      final updatedItem = currentItem.copyWith(quantity: newQuantity);
       cartItems[itemIndex] = updatedItem;
 
       // Recreate the Result and Data layers too to maintain immutability
