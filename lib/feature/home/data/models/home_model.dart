@@ -5,7 +5,7 @@ class HomeApiResponse {
   final dynamic errors;
   const HomeApiResponse({this.status, this.message, this.data, this.errors});
   HomeApiResponse copyWith(
-      {String? status, String? message, Data? data, dynamic? errors}) {
+      {String? status, String? message, Data? data, dynamic errors}) {
     return HomeApiResponse(
         status: status ?? this.status,
         message: message ?? this.message,
@@ -190,7 +190,7 @@ class Product {
   Product copyWith({
     int? id,
     num? price,
-    dynamic? discountPrice,
+    dynamic discountPrice,
     String? name,
     String? description,
     List<String>? images,
@@ -342,7 +342,11 @@ class HomeBanner {
   final int? type;
   final int? itemId;
   final dynamic externalLink;
+  final String? status;
   final String? image;
+  final bool? isSpecial;
+  final String? color;
+  final String? createdAt;
   final String? title;
   final String? details;
 
@@ -351,7 +355,11 @@ class HomeBanner {
     this.type,
     this.itemId,
     this.externalLink,
+    this.status,
     this.image,
+    this.isSpecial,
+    this.color,
+    this.createdAt,
     this.title,
     this.details,
   });
@@ -360,8 +368,12 @@ class HomeBanner {
     int? id,
     int? type,
     int? itemId,
-    dynamic? externalLink,
+    dynamic externalLink,
+    String? status,
     String? image,
+    bool? isSpecial,
+    String? color,
+    String? createdAt,
     String? title,
     String? details,
   }) {
@@ -370,7 +382,11 @@ class HomeBanner {
       type: type ?? this.type,
       itemId: itemId ?? this.itemId,
       externalLink: externalLink ?? this.externalLink,
+      status: status ?? this.status,
       image: image ?? this.image,
+      isSpecial: isSpecial ?? this.isSpecial,
+      color: color ?? this.color,
+      createdAt: createdAt ?? this.createdAt,
       title: title ?? this.title,
       details: details ?? this.details,
     );
@@ -382,7 +398,11 @@ class HomeBanner {
       'type': type,
       'item_id': itemId,
       'external_link': externalLink,
+      'status': status,
       'image': image,
+      'is_special': isSpecial,
+      'color': color,
+      'created_at': createdAt,
       'title': title,
       'details': details,
     };
@@ -394,7 +414,12 @@ class HomeBanner {
       type: json['type'] == null ? null : json['type'] as int,
       itemId: json['item_id'] == null ? null : json['item_id'] as int,
       externalLink: json['external_link'] as dynamic,
+      status: json['status'] == null ? null : json['status'] as String,
       image: json['image'] == null ? null : json['image'] as String,
+      isSpecial: json['is_special'] == null ? null : json['is_special'] as bool,
+      color: json['color'] == null ? null : json['color'] as String,
+      createdAt:
+          json['created_at'] == null ? null : json['created_at'] as String,
       title: json['title'] == null ? null : json['title'] as String,
       details: json['details'] == null ? null : json['details'] as String,
     );
@@ -407,7 +432,11 @@ class HomeBanner {
 type:$type,
 itemId:$itemId,
 externalLink:$externalLink,
+status:$status,
 image:$image,
+isSpecial:$isSpecial,
+color:$color,
+createdAt:$createdAt,
 title:$title,
 details:$details
     ) ''';
@@ -421,14 +450,18 @@ details:$details
         other.type == type &&
         other.itemId == itemId &&
         other.externalLink == externalLink &&
+        other.status == status &&
         other.image == image &&
+        other.isSpecial == isSpecial &&
+        other.color == color &&
+        other.createdAt == createdAt &&
         other.title == title &&
         other.details == details;
   }
 
   @override
   int get hashCode {
-    return Object.hash(
-        runtimeType, id, type, itemId, externalLink, image, title, details);
+    return Object.hash(runtimeType, id, type, itemId, externalLink, status,
+        image, isSpecial, color, createdAt, title, details);
   }
 }

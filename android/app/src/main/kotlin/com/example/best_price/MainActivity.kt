@@ -1,4 +1,4 @@
-package com.example.best_price
+package com.ghina.shop
 
 import io.flutter.embedding.android.FlutterActivity
 

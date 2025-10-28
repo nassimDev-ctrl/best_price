@@ -116,6 +116,105 @@ class CartViewBody extends StatelessWidget {
                               SizedBox(
                                 height: 43.h,
                               ),
+                              // Coupon Code Section
+                              Container(
+                                padding: EdgeInsets.all(16.w),
+                                decoration: BoxDecoration(
+                                  color: AppColor.containerBackColor,
+                                  borderRadius: BorderRadius.circular(12.r),
+                                  border: Border.all(
+                                    color: Colors.grey.withOpacity(0.3),
+                                    width: 1,
+                                  ),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'كود الخصم',
+                                      style: AppStyles.textStyle16w700.copyWith(
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    SizedBox(height: 12.h),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: TextField(
+                                            decoration: InputDecoration(
+                                              hintText: 'أدخل كود الخصم',
+                                              hintStyle: AppStyles
+                                                  .textStyle14w400
+                                                  .copyWith(
+                                                color: Colors.grey[600],
+                                              ),
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.r),
+                                                borderSide: BorderSide(
+                                                  color: Colors.grey
+                                                      .withOpacity(0.3),
+                                                ),
+                                              ),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.r),
+                                                borderSide: BorderSide(
+                                                  color: Colors.grey
+                                                      .withOpacity(0.3),
+                                                ),
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.r),
+                                                borderSide: BorderSide(
+                                                  color: AppColor.corn,
+                                                  width: 2,
+                                                ),
+                                              ),
+                                              contentPadding:
+                                                  EdgeInsets.symmetric(
+                                                horizontal: 12.w,
+                                                vertical: 12.h,
+                                              ),
+                                              filled: true,
+                                              fillColor: Colors.white,
+                                            ),
+                                            style: AppStyles.textStyle14w400,
+                                          ),
+                                        ),
+                                        SizedBox(width: 12.w),
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            // TODO: Implement coupon apply logic
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: AppColor.corn,
+                                            foregroundColor: Colors.white,
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: 20.w,
+                                              vertical: 12.h,
+                                            ),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.r),
+                                            ),
+                                            elevation: 0,
+                                          ),
+                                          child: Text(
+                                            'تطبيق',
+                                            style: AppStyles.textStyle14w700
+                                                .copyWith(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 20.h),
                               // CustomRowText(
                               //   text1: S.of(context).sub_total,
                               //   textStyle1: AppStyles.textStyle18w400,

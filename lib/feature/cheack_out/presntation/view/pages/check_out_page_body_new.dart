@@ -62,38 +62,38 @@ class CheckOutPageBodyNew extends StatelessWidget {
               keyboardType: TextInputType.streetAddress,
               validator: (p0) => Validate.validateFailed(context, p0),
             ),
-            SizedBox(
-              height: 32.h,
-            ),
-            AuthFieldText(
-              title: S.of(context).name,
-            ),
-            SizedBox(
-              height: 20.h,
-            ),
-            AuthTextField(
-              textEditingController: addOrderCubit.fullNameController,
-              keyboardType: TextInputType.name,
-              validator: (p0) => Validate.validateFullName(context, p0),
-            ),
-            SizedBox(
-              height: 32.h,
-            ),
-            AuthFieldText(
-              title: S.of(context).phone_number_,
-            ),
-            SizedBox(
-              height: 20.h,
-            ),
-            AuthTextField(
-              maxLength: 10,
-              inputFormatters: [
-                FilteringTextInputFormatter.digitsOnly,
-              ],
-              textEditingController: addOrderCubit.phoneController,
-              keyboardType: TextInputType.phone,
-              validator: (p0) => Validate.validatePhoneNumber(context, p0),
-            ),
+            // SizedBox(
+            //   height: 32.h,
+            // ),
+            // AuthFieldText(
+            //   title: S.of(context).name,
+            // ),
+            // SizedBox(
+            //   height: 20.h,
+            // ),
+            // AuthTextField(
+            //   textEditingController: addOrderCubit.fullNameController,
+            //   keyboardType: TextInputType.name,
+            //   validator: (p0) => Validate.validateFullName(context, p0),
+            // ),
+            // SizedBox(
+            //   height: 32.h,
+            // ),
+            // AuthFieldText(
+            //   title: S.of(context).phone_number_,
+            // ),
+            // SizedBox(
+            //   height: 20.h,
+            // ),
+            // AuthTextField(
+            //   maxLength: 10,
+            //   inputFormatters: [
+            //     FilteringTextInputFormatter.digitsOnly,
+            //   ],
+            //   textEditingController: addOrderCubit.phoneController,
+            //   keyboardType: TextInputType.phone,
+            //   validator: (p0) => Validate.validatePhoneNumber(context, p0),
+            // ),
             SizedBox(
               height: 32.h,
             ),

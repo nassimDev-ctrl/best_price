@@ -1,3 +1,5 @@
+import 'package:best_price/core/cache/cache_helper.dart';
+import 'package:best_price/core/utils/keys.dart';
 import 'package:best_price/core/utils/service_locator.dart';
 import 'package:best_price/feature/cart/data/models/order_model.dart';
 import 'package:best_price/feature/cart/data/repos/cart_repo/cart_repo.dart';
@@ -31,9 +33,6 @@ class AddOrderCubit extends Cubit<AddOrderState> {
 
     final request = OrderModel(
       noteController.text,
-      name: fullNameController.text.trim(),
-      mobile: phoneController.text.trim(),
-      email: "test@gmail.com",
       shippingAddress: shippingAddressController.text.trim(),
       items: items,
     );

@@ -1,17 +1,17 @@
 class OrderModel {
   final String shippingAddress;
-  final String name;
-  final String mobile;
-  final String email;
+  final String? name;
+  final String? mobile;
+  final String? email;
   final List<OrderItem> items;
   final String? note;
 
   OrderModel(
     this.note, {
     required this.shippingAddress,
-    required this.name,
-    required this.mobile,
-    required this.email,
+    this.name,
+    this.mobile,
+    this.email,
     required this.items,
   });
 

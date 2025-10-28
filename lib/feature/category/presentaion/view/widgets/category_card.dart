@@ -27,40 +27,72 @@ class CategoryCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(15.r),
           ),
         ),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // SvgPicture.asset(
-              //   imageUrl,
-              //   fit: BoxFit.cover,
-              //   height: 42.w,
-              //   width: 42.w,
-              // ),
-              CachedNetworkImage(
-                imageUrl: imageUrl,
-                placeholder: (context, url) => Shimmer.fromColors(
-                  baseColor: Colors.grey[300]!,
-                  highlightColor: Colors.grey[100]!,
-                  child: Container(
-                    color: Colors.white,
-                    width: 42.w,
-                    height: 42.w,
+        child: Stack(
+          children: [
+            // Full container image background
+            Positioned.fill(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15.r),
+                child: CachedNetworkImage(
+                  imageUrl: imageUrl,
+                  placeholder: (context, url) => Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    child: Container(
+                      color: Colors.white,
+                    ),
+                  ),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            // Semi-transparent overlay for better text readability
+            Positioned.fill(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15.r),
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.transparent,
+                      Colors.black.withOpacity(0.3),
+                      Colors.black.withOpacity(0.6),
+                    ],
+                    stops: const [0.0, 0.6, 1.0],
                   ),
                 ),
-                height: 90.w,
-                width: 90.w,
-                fit: BoxFit.scaleDown,
               ),
-              SizedBox(
-                height: 37.h,
+            ),
+            // Centered text in the middle
+            Center(
+              child: Padding(
+                padding: EdgeInsets.all(12.w),
+                child: Text(
+                  title,
+                  style: AppStyles.textStyle17w700.copyWith(
+                    color: Colors.white,
+                    shadows: [
+                      Shadow(
+                        offset: const Offset(1, 1),
+                        blurRadius: 3,
+                        color: Colors.black.withOpacity(0.8),
+                      ),
+                      Shadow(
+                        offset: const Offset(-1, -1),
+                        blurRadius: 3,
+                        color: Colors.black.withOpacity(0.8),
+                      ),
+                    ],
+                  ),
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
-              Text(
-                title,
-                style: AppStyles.textStyle17w700
-                    .copyWith(fontWeight: FontWeight.w400, color: Colors.black),
-              )
-            ]),
+            ),
+          ],
+        ),
       ),
     );
   }
