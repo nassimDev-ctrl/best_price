@@ -46,6 +46,21 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   final PageController pageController = PageController();
   int roundedRating = 0;
 
+  Color _parseColor(String? hex) {
+    if (hex == null || hex.isEmpty) {
+      return AppColor.containerBackColor;
+    }
+    String value = hex.replaceFirst('#', '').toUpperCase();
+    if (value.length == 6) {
+      value = 'FF$value';
+    }
+    final int? intVal = int.tryParse(value, radix: 16);
+    if (intVal == null) {
+      return AppColor.containerBackColor;
+    }
+    return Color(intVal);
+  }
+
   // Helper method to get all image URLs
   List<String> _getImageUrls(ProductDetailsCubit cubit) {
     final images = cubit.productDetailsModel.data?.images;
@@ -90,12 +105,27 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           listener: (BuildContext context, ProductDetailsState state) {},
           builder: (BuildContext context, ProductDetailsState state) {
             ProductDetailsCubit cubit = ProductDetailsCubit.get(context);
-            double price =
-                (cubit.productDetailsModel.data?.price ?? 0).toDouble();
-            double discountPercentage =
-                (cubit.productDetailsModel.data?.discountPrice ?? 0).toDouble();
 
-            double offerPrice = price - (price * discountPercentage / 100);
+            // Calculate price based on selected variant or base product
+            double price;
+            double discountPrice;
+
+            // Use variant price only if it exists and is greater than 0
+            // Otherwise fall back to base product price
+            if (cubit.selectedVariant?.id != null &&
+                cubit.selectedVariant!.price != null &&
+                cubit.selectedVariant!.price! > 0) {
+              price = cubit.selectedVariant!.price!.toDouble();
+              discountPrice =
+                  (cubit.selectedVariant!.discountPrice ?? 0).toDouble();
+            } else {
+              price = (cubit.productDetailsModel.data?.price ?? 0).toDouble();
+              discountPrice =
+                  (cubit.productDetailsModel.data?.discountPrice ?? 0)
+                      .toDouble();
+            }
+
+            double offerPrice = price - (price * discountPrice / 100);
             final hasVideo = cubit.productDetailsModel.data?.video != null;
             final images = cubit.productDetailsModel.data?.images;
             final hasImages = images != null && images.isNotEmpty;
@@ -129,11 +159,35 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                               secondIconPath: IconsPath.buyIcon,
                               // thirdIconPath: IconsPath.favoriteIcon,
                               onSecondIconTap: () {
+                                final variants =
+                                    cubit.productDetailsModel.data?.variants ??
+                                        [];
+                                final hasVariants = variants.isNotEmpty;
+
+                                // Check if variants exist and require selection
+                                if (hasVariants &&
+                                    cubit.selectedVariant?.id == null) {
+                                  showTopSnackBar(
+                                    Overlay.of(context),
+                                    CustomSnackBar.error(
+                                      message:
+                                          "يرجى اختيار المقاس واللون أولاً",
+                                      backgroundColor: Colors.red,
+                                      textStyle: AppStyles.textStyle14.copyWith(
+                                        color: AppColor.whiteColorOpacity,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  );
+                                  return;
+                                }
+
                                 context.read<AddToCartCubit>().addToCart(
                                     cubit.productDetailsModel.data?.id
                                             .toString() ??
                                         "",
-                                    cubit.quantity);
+                                    cubit.quantity,
+                                    variantId: cubit.selectedVariant?.id);
                               },
                               onThirdIconTap: () {},
                             ),
@@ -170,8 +224,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                         final adjustedIndex =
                                             hasVideo ? index - 1 : index;
 
-                                        if (hasImages) {
-                                          final image = images?[adjustedIndex];
+                                        if (hasImages && images != null) {
+                                          final image = images[adjustedIndex];
                                           return GestureDetector(
                                             onTap: () {
                                               _openFullScreenViewer(
@@ -183,7 +237,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                               child: CustomNetworkImageWidget(
                                                 height: double.infinity,
                                                 width: double.infinity,
-                                                urlImage: image?.image ?? "",
+                                                urlImage: image.image ?? "",
                                               ),
                                             ),
                                           );
@@ -330,6 +384,174 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                               ],
                             ),
                           ),
+                          //? variant selectors (size/color)
+                          if ((cubit.productDetailsModel.data?.isHasVariant ??
+                                  false) &&
+                              (cubit.productDetailsModel.data?.variants
+                                      ?.isNotEmpty ??
+                                  false))
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 16.w, vertical: 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // Sizes
+                                  Builder(builder: (context) {
+                                    final variants = cubit.productDetailsModel
+                                            .data?.variants ??
+                                        [];
+                                    final sizeMap = <int, dynamic>{};
+                                    for (final v in variants) {
+                                      final sz = v.size;
+                                      if (sz?.id != null) {
+                                        sizeMap[sz!.id!] = sz;
+                                      }
+                                    }
+                                    final sizes = sizeMap.values.toList();
+                                    if (sizes.isEmpty) {
+                                      return const SizedBox.shrink();
+                                    }
+                                    return Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text('المقاس',
+                                            style: AppStyles.textStyle18w700),
+                                        const SizedBox(height: 8),
+                                        Wrap(
+                                          spacing: 8,
+                                          runSpacing: 8,
+                                          children: [
+                                            for (final sz in sizes)
+                                              GestureDetector(
+                                                onTap: () {
+                                                  cubit.setSize(sz.id as int);
+                                                },
+                                                child: Container(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal: 12,
+                                                      vertical: 8),
+                                                  decoration: BoxDecoration(
+                                                    color: (cubit.sizeId ==
+                                                            (sz.id as int))
+                                                        ? AppColor.pirateGold
+                                                        : AppColor
+                                                            .containerBackColor,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                    border: Border.all(
+                                                      color: (cubit.sizeId ==
+                                                              (sz.id as int))
+                                                          ? AppColor.pirateGold
+                                                          : AppColor
+                                                              .borderColor,
+                                                    ),
+                                                  ),
+                                                  child: Text(
+                                                    '${sz.name ?? ''}',
+                                                    style: AppStyles
+                                                        .textStyle16w700
+                                                        .copyWith(
+                                                      color: (cubit.sizeId ==
+                                                              (sz.id as int))
+                                                          ? Colors.white
+                                                          : AppColor.black,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                          ],
+                                        ),
+                                      ],
+                                    );
+                                  }),
+                                  const SizedBox(height: 12),
+                                  // Colors
+                                  Builder(builder: (context) {
+                                    final variants = cubit.productDetailsModel
+                                            .data?.variants ??
+                                        [];
+
+                                    // Filter variants based on selected size
+                                    final filteredVariants =
+                                        variants.where((v) {
+                                      if (cubit.sizeId == 0) return false;
+                                      return v.size?.id == cubit.sizeId;
+                                    }).toList();
+
+                                    final colorMap = <int, dynamic>{};
+                                    for (final v in filteredVariants) {
+                                      final c = v.color;
+                                      if (c?.id != null) {
+                                        colorMap[c!.id!] = c;
+                                      }
+                                    }
+                                    final colors = colorMap.values.toList();
+                                    if (cubit.sizeId == 0) {
+                                      return Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text('اللون',
+                                              style: AppStyles.textStyle18w700),
+                                          const SizedBox(height: 8),
+                                          Text(
+                                            'اختر المقاس أولاً',
+                                            style: AppStyles.textStyle14
+                                                .copyWith(
+                                                    color: AppColor.greyText),
+                                          ),
+                                        ],
+                                      );
+                                    }
+                                    if (colors.isEmpty) {
+                                      return const SizedBox.shrink();
+                                    }
+                                    return Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text('اللون',
+                                            style: AppStyles.textStyle18w700),
+                                        const SizedBox(height: 8),
+                                        Wrap(
+                                          spacing: 8,
+                                          runSpacing: 8,
+                                          children: [
+                                            for (final c in colors)
+                                              GestureDetector(
+                                                onTap: () {
+                                                  cubit.setColor(c.id as int);
+                                                },
+                                                child: Container(
+                                                  width: 36,
+                                                  height: 36,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: _parseColor(
+                                                        c.hash as String?),
+                                                    border: Border.all(
+                                                      color: (cubit.colorId ==
+                                                              (c.id as int))
+                                                          ? AppColor.pirateGold
+                                                          : AppColor
+                                                              .borderColor,
+                                                      width: 2,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                          ],
+                                        ),
+                                      ],
+                                    );
+                                  }),
+                                ],
+                              ),
+                            ),
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 16.w),
                             child: Column(
@@ -475,9 +697,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                       Column(
                                         children: [
                                           Visibility(
-                                            visible: offerPrice !=
-                                                cubit.productDetailsModel.data
-                                                    ?.price,
+                                            visible: offerPrice != price,
                                             child: Text(
                                               '${offerPrice.toStringAsFixed(2)} ل.س',
                                               style: AppStyles.textStyle20w700
@@ -487,14 +707,10 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                             ),
                                           ),
                                           Text(
-                                            '${cubit.productDetailsModel.data?.price?.toStringAsFixed(2)} ل.س',
+                                            '${price.toStringAsFixed(2)} ل.س',
                                             style: AppStyles.textStyle14w700
                                                 .copyWith(
-                                              decoration: cubit
-                                                          .productDetailsModel
-                                                          .data
-                                                          ?.discountPrice !=
-                                                      null
+                                              decoration: discountPrice > 0
                                                   ? TextDecoration.lineThrough
                                                   : null,
                                               decorationColor:
@@ -613,38 +829,47 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                       return const Center(
                                           child: CustomLoading());
                                     } else {
+                                      final variants = cubit.productDetailsModel
+                                              .data?.variants ??
+                                          [];
+                                      final hasVariants = variants.isNotEmpty;
+                                      final isVariantSelected =
+                                          cubit.selectedVariant?.id != null;
+
+                                      // If product has variants, require both size and color to be selected
+
                                       return AppBottom(
                                         onTap: () {
                                           final product =
                                               cubit.productDetailsModel.data;
 
-                                          // if ((product?.isSeller ?? false) &&
-                                          //     (product?.minSellerQuantity !=
-                                          //             null &&
-                                          //         product!.minSellerQuantity! >
-                                          //             cubit.quantity)) {
-                                          //   showTopSnackBar(
-                                          //     Overlay.of(context),
-                                          //     CustomSnackBar.error(
-                                          //       message:
-                                          //           "الحد الأدنى للكمية للبائع هو ${product.minSellerQuantity} عناصر.",
-                                          //       backgroundColor: Colors.red,
-                                          //       textStyle: AppStyles.textStyle14
-                                          //           .copyWith(
-                                          //         color: AppColor
-                                          //             .whiteColorOpacity,
-                                          //         fontWeight: FontWeight.w700,
-                                          //       ),
-                                          //     ),
-                                          //   );
-                                          //   return; // ❗ prevent adding to cart
-                                          // }
+                                          // Validate variant selection if variants exist
+                                          if (hasVariants &&
+                                              !isVariantSelected) {
+                                            showTopSnackBar(
+                                              Overlay.of(context),
+                                              CustomSnackBar.error(
+                                                message:
+                                                    "يرجى اختيار المقاس واللون أولاً",
+                                                backgroundColor: Colors.red,
+                                                textStyle: AppStyles.textStyle14
+                                                    .copyWith(
+                                                  color: AppColor
+                                                      .whiteColorOpacity,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                              ),
+                                            );
+                                            return;
+                                          }
 
                                           context
                                               .read<AddToCartCubit>()
                                               .addToCart(
                                                   product?.id?.toString() ?? "",
-                                                  cubit.quantity);
+                                                  cubit.quantity,
+                                                  variantId: cubit
+                                                      .selectedVariant?.id);
                                         },
                                         title: S.of(context).add_to_cart,
                                       );
@@ -671,7 +896,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                       return ProductsList(
                                           productList: state.products);
                                     } else {
-                                      return SizedBox();
+                                      return const SizedBox();
                                     }
                                   },
                                 )

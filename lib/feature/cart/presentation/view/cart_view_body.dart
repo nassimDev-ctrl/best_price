@@ -102,15 +102,9 @@ class CartViewBody extends StatelessWidget {
                                   height: 20.h,
                                 ),
                                 itemBuilder: (context, index) => CartItem(
-                                  id: myCartCubit.myCart.data?.result
-                                          ?.myCart?[index].id ??
-                                      -1,
-                                  quantity: myCartCubit.myCart.data?.result
-                                          ?.myCart?[index].quantity ??
-                                      0,
-                                  cartProduct: myCartCubit.myCart.data?.result
-                                          ?.myCart?[index].product ??
-                                      const Product(),
+                                  myCart: myCartCubit.myCart.data?.result
+                                          ?.myCart?[index] ??
+                                      const MyCart(),
                                 ),
                               ),
                               SizedBox(
@@ -167,7 +161,7 @@ class CartViewBody extends StatelessWidget {
                                               focusedBorder: OutlineInputBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(8.r),
-                                                borderSide: BorderSide(
+                                                borderSide: const BorderSide(
                                                   color: AppColor.corn,
                                                   width: 2,
                                                 ),

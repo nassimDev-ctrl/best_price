@@ -21,15 +21,13 @@ import '../../../../core/widgets/question_dialog.dart';
 class CartItem extends StatelessWidget {
   const CartItem({
     super.key,
-    required this.cartProduct,
-    required this.quantity,
-    required this.id,
+    required this.myCart,
   });
-  final Product cartProduct;
-  final num quantity;
-  final int id;
+  final MyCart myCart;
   @override
   Widget build(BuildContext context) {
+    final cartProduct = myCart.product ?? const Product();
+    final variant = myCart.variant;
     double price = (cartProduct.price ?? 0).toDouble();
     double discountPercentage = (cartProduct.discountPrice ?? 0).toDouble();
     double offerPrice = price - (price * discountPercentage / 100);
@@ -69,6 +67,42 @@ class CartItem extends StatelessWidget {
                   cartProduct.name.toString() ?? "No title",
                   style: AppStyles.textStyle18w700,
                 ),
+                if ((variant?.size?.isNotEmpty ?? false) ||
+                    (variant?.color?.isNotEmpty ?? false)) ...[
+                  SizedBox(height: 6.h),
+                  Row(
+                    children: [
+                      if (variant?.size?.isNotEmpty ?? false)
+                        Text(
+                          "المقاس: ${variant!.size}",
+                          style: AppStyles.textStyle16w400
+                              .copyWith(color: AppColor.greyText),
+                        ),
+                      if (variant?.color?.isNotEmpty ?? false) ...[
+                        if (variant?.size?.isNotEmpty ?? false)
+                          SizedBox(width: 14),
+                        Text(
+                          "اللون: ${variant!.color}",
+                          style: AppStyles.textStyle16w400
+                              .copyWith(color: AppColor.greyText),
+                        ),
+                        if (variant?.colorHash?.isNotEmpty ?? false) ...[
+                          SizedBox(width: 6),
+                          Container(
+                            width: 18,
+                            height: 18,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: _parseColor(variant.colorHash),
+                              border: Border.all(
+                                  width: 1, color: Colors.grey.shade300),
+                            ),
+                          ),
+                        ]
+                      ],
+                    ],
+                  ),
+                ],
                 SizedBox(height: 10.h),
                 RichText(
                   text: TextSpan(
@@ -90,36 +124,6 @@ class CartItem extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 10.h),
-                // RichText(
-                //   text: TextSpan(
-                //     text: S.of(context).size, //"Size",
-                //     style: AppStyles.textStyle16w400
-                //         .copyWith(color: AppColor.greyOpacity),
-                //     children: [
-                //       TextSpan(
-                //         text: ": ${S.of(context).large}",
-                //         style: AppStyles.textStyle16w400
-                //             .copyWith(color: AppColor.black2),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                // SizedBox(height: 10.h),
-                // RichText(
-                //   text: TextSpan(
-                //     text: "Color",
-                //     style: AppStyles.textStyle16w400
-                //         .copyWith(color: AppColor.greyOpacity),
-                //     children: [
-                //       TextSpan(
-                //         text: ": Black",
-                //         style: AppStyles.textStyle16w400
-                //             .copyWith(color: AppColor.black2),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                // SizedBox(height: 10.h),
                 RichText(
                   text: TextSpan(
                     text: "الكمية",
@@ -127,7 +131,7 @@ class CartItem extends StatelessWidget {
                         .copyWith(color: AppColor.greyOpacity),
                     children: [
                       TextSpan(
-                        text: ": $quantity",
+                        text: ": ${myCart.quantity}",
                         style: AppStyles.textStyle16w400
                             .copyWith(color: AppColor.black2),
                       ),
@@ -141,7 +145,7 @@ class CartItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CustomEditQuantity(
-                      id: id.toString(),
+                      id: myCart.id.toString(),
                       minSellerQuantity: cartProduct.minSellerQuantity ?? 1,
                     ),
                     IconButton(
@@ -161,7 +165,6 @@ class CartItem extends StatelessWidget {
                                       Overlay.of(context),
                                       const CustomSnackBar.success(
                                           message: "تم حذف المنتج"));
-
                                   HelperFunctions.navigateToBack(context);
                                 }
                               },
@@ -174,7 +177,7 @@ class CartItem extends StatelessWidget {
                                         .delete_product, //"Delete Product",
                                     contain: S
                                         .of(context)
-                                        .delete_product_contain_message, // "Are Your Sure You \nWant to delete Item from Cart",
+                                        .delete_product_contain_message,
                                     onTapYes: () async {
                                       await DeleteFromMyCartCubit.get(context)
                                           .deleteFromCart(cartProduct.id ?? 0);
@@ -196,5 +199,20 @@ class CartItem extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Color _parseColor(String? hex) {
+    if (hex == null || hex.isEmpty) {
+      return Colors.grey.shade200;
+    }
+    String value = hex.replaceFirst('#', '');
+    if (value.length == 6) {
+      value = 'FF$value';
+    }
+    final int? intVal = int.tryParse(value, radix: 16);
+    if (intVal == null) {
+      return Colors.grey.shade200;
+    }
+    return Color(intVal);
   }
 }
