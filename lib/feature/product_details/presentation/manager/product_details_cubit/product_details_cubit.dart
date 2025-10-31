@@ -37,6 +37,18 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
       //     image:
       //         "https://drive.google.com/file/d/10pPaPxrVe4q8oeEOZJVBBD_YtpcInJoe/view?usp=sharing",
       //     type: 11));
+
+      // Auto-select first variant if variants exist
+      final variants = productDetailsModel.data?.variants ?? [];
+      if (variants.isNotEmpty) {
+        final firstVariant = variants.first;
+        if (firstVariant.size?.id != null && firstVariant.color?.id != null) {
+          sizeId = firstVariant.size!.id!;
+          colorId = firstVariant.color!.id!;
+          _updateSelectedVariant();
+        }
+      }
+
       emit(ProductDetailsCubitSuccess());
     });
   }
@@ -64,8 +76,22 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   int sizeId = 0;
   setSize(int id) {
     sizeId = id;
-    // Reset color on size change to force re-selection
-    colorId = 0;
+
+    // Auto-select first color for the selected size
+    final variants = productDetailsModel.data?.variants ?? [];
+    final filteredVariants = variants.where((v) => v.size?.id == id).toList();
+
+    if (filteredVariants.isNotEmpty) {
+      final firstVariant = filteredVariants.first;
+      if (firstVariant.color?.id != null) {
+        colorId = firstVariant.color!.id!;
+      } else {
+        colorId = 0;
+      }
+    } else {
+      colorId = 0;
+    }
+
     _updateSelectedVariant();
   }
 

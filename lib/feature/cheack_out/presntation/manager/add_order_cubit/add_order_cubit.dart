@@ -17,6 +17,7 @@ class AddOrderCubit extends Cubit<AddOrderState> {
   TextEditingController emailController = TextEditingController();
   TextEditingController shippingAddressController = TextEditingController();
   TextEditingController noteController = TextEditingController();
+  TextEditingController couponCodeController = TextEditingController();
   final CartRepo _orderRepo = getIt<CartRepo>();
   Future<void> submitOrder(BuildContext context) async {
     emit(AddOrderLoading());
@@ -28,6 +29,7 @@ class AddOrderCubit extends Cubit<AddOrderState> {
       return OrderItem(
         productId: cartItem.product?.id ?? 0,
         quantity: cartItem.quantity ?? 1,
+        variantId: cartItem.variant?.id,
       );
     }).toList();
 
@@ -35,6 +37,9 @@ class AddOrderCubit extends Cubit<AddOrderState> {
       noteController.text,
       shippingAddress: shippingAddressController.text.trim(),
       items: items,
+      couponCode: couponCodeController.text.trim().isNotEmpty
+          ? couponCodeController.text.trim()
+          : null,
     );
     final result = await _orderRepo.addOrder(request);
 
