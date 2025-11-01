@@ -1,6 +1,10 @@
 import 'package:best_price/core/cache/cache_helper.dart';
 import 'package:best_price/core/utils/bloc_observer.dart';
+import 'package:best_price/core/utils/fcm_helper.dart';
 import 'package:best_price/core/utils/service_locator.dart';
+import 'package:best_price/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:best_price/feature/account/presentation/manager/add_address/add_address_cubit.dart';
 import 'package:best_price/feature/account/presentation/manager/address_cubit/address_cubit.dart';
 import 'package:best_price/feature/account/presentation/manager/area_cubit/area_cubit.dart';
@@ -55,6 +59,18 @@ import 'feature/product_details/presentation/manager/product_details_cubit/produ
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
+
+  // Initialize Firebase
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  // Set up Firebase Cloud Messaging background handler
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
+  // Initialize FCM Helper
+  await FcmHelper.instance.initialize();
+
   await CacheHelper.cacheInit();
   setupServiceLocator();
   // CacheHelper.clearCashe();

@@ -99,7 +99,15 @@ class _HomePgeBodyState extends State<HomePgeBody> {
               },
               builder: (context, state) {
                 if (state is HomeCubitFailure) {
-                  return const CustomErrorWidget();
+                  return CustomErrorWidget(
+                    onTap: () async {
+                      await homeCubit.getHomePage();
+                      if (context.mounted) {
+                        await BlocProvider.of<GetNewsCubit>(context)
+                            .getAllNews();
+                      }
+                    },
+                  );
                 } else {
                   return Column(
                     children: [

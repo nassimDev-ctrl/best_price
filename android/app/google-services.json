@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "505535300751",
+    "project_id": "ghina-f8f08",
+    "storage_bucket": "ghina-f8f08.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:505535300751:android:f236e959b5e4bcf04e9cfa",
+        "android_client_info": {
+          "package_name": "com.ghina.shop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChV9ok4sJq4DbN9ybF3U7bjUDYIM4ScJ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
